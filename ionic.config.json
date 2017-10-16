@@ -1,5 +1,6 @@
 {
-  "name": "conFusion-ionic2",
+  "name": "conFusion-ionic3",
   "app_id": "",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "integrations": {}
 }

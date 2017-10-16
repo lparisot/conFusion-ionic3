@@ -1,7 +1,7 @@
 {
-  "name": "conFusion-ionic2",
+  "name": "conFusion-ionic3",
   "version": "0.0.1",
-  "author": "Ionic Framework",
+  "author": "LPA",
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
@@ -34,5 +34,5 @@
     "@ionic/app-scripts": "3.0.0",
     "typescript": "2.3.4"
   },
-  "description": "An Ionic project"
+  "description": "conFusion project"
 }
