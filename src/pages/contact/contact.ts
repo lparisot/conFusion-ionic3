@@ -13,13 +13,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-contact',
   templateUrl: 'contact.html',
 })
-export class ContactPage {
 
+export class ContactPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ContactPage');
   }
-
 }
