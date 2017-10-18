@@ -28,7 +28,7 @@
     </ion-card-header>
 
     <ion-card-content>
-      <ion-list *ngIf="leaders">
+      <ion-list *ngIf="leaders" no-lines>
         <ion-item *ngFor="let leader of leaders" text-wrap>
           <ion-avatar item-start>
             <img src="{{baseURL + leader.image}}"/>
