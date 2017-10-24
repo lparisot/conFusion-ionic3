@@ -1,10 +1,10 @@
 import { Component, Inject } from '@angular/core';
-import { IonicPage, NavController, NavParams,
-         ToastController, Platform, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform,
+         ToastController, ActionSheetController, ModalController } from 'ionic-angular';
 
 import { Dish } from '../../shared/dish';
-//import { Comment } from '../../shared/comment';
 import { FavoriteProvider } from '../../providers/favorite/favorite';
+import { CommentPage } from '../comment/comment';
 
 /**
  * Generated class for the DishdetailPage page.
@@ -32,6 +32,7 @@ export class DishdetailPage {
     public toastController: ToastController,
     public platform: Platform,
     public actionSheetController: ActionSheetController,
+    public modalController: ModalController,
     private favoriteService: FavoriteProvider,
     @Inject('BaseURL') private baseURL) {
 
@@ -77,7 +78,13 @@ export class DishdetailPage {
             text: 'Add a Comment',
             icon: !this.platform.is('ios') ? 'paper' : null,
             handler: () => {
-
+              let modal = this.modalController.create(CommentPage);
+              modal.onDidDismiss(comment => {
+                if(comment != null) {
+                  this.dish.comments.push(comment);
+                }
+              })
+              modal.present();
             }
           },
           {
