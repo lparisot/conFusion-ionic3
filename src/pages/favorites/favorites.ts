@@ -32,7 +32,7 @@ export class FavoritesPage implements OnInit {
     @Inject('BaseURL') private baseURL) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad FavoritesPage');
+    console.log('inViewDidLoad FavoritesPage');
   }
 
   ngOnInit() {

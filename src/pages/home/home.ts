@@ -7,6 +7,7 @@ import { Promotion } from '../../shared/promotion';
 import { PromotionProvider } from '../../providers/promotion/promotion';
 import { Leader } from '../../shared/leader';
 import { LeaderProvider } from '../../providers/leader/leader';
+import { FavoriteProvider } from '../../providers/favorite/favorite';
 
 @Component({
   selector: 'page-home',
@@ -24,6 +25,7 @@ export class HomePage implements OnInit {
               private dishService: DishProvider,
               private promotionService: PromotionProvider,
               private leaderService: LeaderProvider,
+              private favoriteService: FavoriteProvider,
               @Inject('BaseURL') private baseURL) { }
 
   ngOnInit() {
