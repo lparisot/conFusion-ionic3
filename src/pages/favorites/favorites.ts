@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { IonicPage, NavController, NavParams, ItemSliding,
          ToastController, LoadingController, AlertController } from 'ionic-angular';
+import { LocalNotifications } from '@ionic-native/local-notifications';
+
 
 import { FavoriteProvider } from '../../providers/favorite/favorite';
 import { Dish } from '../../shared/dish';
@@ -29,6 +31,7 @@ export class FavoritesPage implements OnInit {
     private loadingController: LoadingController,
     private alertController: AlertController,
     private favoriteService: FavoriteProvider,
+    private localNotifications: LocalNotifications,
     @Inject('BaseURL') private baseURL) { }
 
   ionViewDidLoad() {
@@ -67,7 +70,7 @@ export class FavoritesPage implements OnInit {
 
             loading.present();
             this.favoriteService
-              .deleteFavorite(dish.id)
+              .deleteFavorite(dish)
               .subscribe(favorites => {
                             this.favorites = favorites;
                             loading.dismiss();

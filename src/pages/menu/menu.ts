@@ -48,7 +48,7 @@ export class MenuPage implements OnInit {
   addToFavorites(dish: Dish) {
     if (!this.favoriteService.isFavorite(dish.id)) {
       console.log('Adding to favorites', dish.id);
-      if (this.favoriteService.addFavorite(dish.id)) {
+      if (this.favoriteService.addFavorite(dish)) {
         this.toastController
           .create({
             message: 'Dish ' + dish.name + ' added as a favorite successfully',

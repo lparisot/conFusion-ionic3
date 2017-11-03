@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Storage } from '@ionic/storage';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { Dish } from '../../shared/dish';
 import { DishProvider } from '../../providers/dish/dish';
@@ -20,7 +21,8 @@ export class FavoriteProvider {
   constructor(
     public http: Http,
     private storage: Storage,
-    private dishService: DishProvider) {
+    private dishService: DishProvider,
+    private localNotifications: LocalNotifications) {
 
     console.log('Hello FavoriteProvider Provider');
     this.favorites = [];
@@ -35,24 +37,28 @@ export class FavoriteProvider {
     });
   }
 
-  addFavorite(id: number): boolean {
-    if (!this.isFavorite(id)) {
-      this.favorites.push(id);
+  addFavorite(dish: Dish): boolean {
+    if (!this.isFavorite(dish.id)) {
+      this.favorites.push(dish.id);
       this.storage.set('favorites', this.favorites);
+      this.localNotifications.schedule({
+        id: dish.id,
+        text: 'Dish ' + dish.name + ' added as favorite successfully'
+      });
     }
     return true;
   }
 
-  deleteFavorite(id: number): Observable<Dish[]> {
-    let index = this.favorites.indexOf(id);
+  deleteFavorite(dish: Dish): Observable<Dish[]> {
+    let index = this.favorites.indexOf(dish.id);
     if (index >= 0) {
       this.favorites.splice(index, 1);
       this.storage.set('favorites', this.favorites);
       return this.getFavorites();
     }
     else {
-      console.log('Deleting non-existant favorite', id);
-      return Observable.throw('Deleting non-existant favorite ' + id);
+      console.log('Deleting non-existant favorite', dish.id);
+      return Observable.throw('Deleting non-existant favorite ' + dish.id);
     }
   }
 

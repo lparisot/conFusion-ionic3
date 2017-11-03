@@ -51,7 +51,7 @@ export class DishdetailPage {
   addToFavorites() {
     if (!this.favorite) {
       console.log('Adding to favorites ', this.dish.id);
-      this.favorite = this.favoriteService.addFavorite(this.dish.id);
+      this.favorite = this.favoriteService.addFavorite(this.dish);
       if (this.favorite) {
         this.toastController
           .create({
