@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform,
          ToastController, ActionSheetController, ModalController } from 'ionic-angular';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { Dish } from '../../shared/dish';
 import { FavoriteProvider } from '../../providers/favorite/favorite';
@@ -34,6 +35,7 @@ export class DishdetailPage {
     public actionSheetController: ActionSheetController,
     public modalController: ModalController,
     private favoriteService: FavoriteProvider,
+    private socialSharing: SocialSharing,
     @Inject('BaseURL') private baseURL) {
 
     this.dish = navParams.get('dish');
@@ -64,6 +66,9 @@ export class DishdetailPage {
   }
 
   openActionSheet() {
+    let toast = this.toastController
+      .create({message: 'Message', duration: 3000});
+
     let actionSheet = this.actionSheetController.create({
       title: 'Select Actions',
       buttons: [
@@ -85,6 +90,40 @@ export class DishdetailPage {
                 }
               })
               modal.present();
+            }
+          },
+          {
+            text: 'Share via Facebook',
+            handler: () => {
+              this.socialSharing.shareViaFacebook(
+                this.dish.name + ' -- ' + this.dish.description,
+                this.baseURL + this.dish.image,
+                ''
+              ).then(() => {
+                toast.setMessage('Posted successfully to Facebook'),
+                toast.present();
+              })
+              .catch(() => {
+                toast.setMessage('Failed to post to Facebook')
+                toast.present();
+              });
+            }
+          },
+          {
+            text: 'Share via Twitter',
+            handler: () => {
+              this.socialSharing.shareViaTwitter(
+                this.dish.name + ' -- ' + this.dish.description,
+                this.baseURL + this.dish.image,
+                ''
+              ).then(() => {
+                toast.setMessage('Posted successfully to Twitter'),
+                toast.present();
+              })
+              .catch(() => {
+                toast.setMessage('Failed to post to Twitter')
+                toast.present();
+              });
             }
           },
           {
