@@ -77,7 +77,7 @@ Run the application using Xcode:
 
 Or run the application with the command line:
 ```bash
-$ ionic cordova run ios
+$ ionic cordova run ios --livereload --consolelogs
 ```
 
 ### Give rights to your application in your phone
