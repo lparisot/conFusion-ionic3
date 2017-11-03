@@ -6,6 +6,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import { EmailComposer } from '@ionic-native/email-composer';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -61,6 +62,7 @@ import { baseURL } from '../shared/baseurl';
     StatusBar,
     SplashScreen,
     LocalNotifications,
+    EmailComposer,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: 'BaseURL', useValue: baseURL },
     DishProvider,
