@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, ModalController } from 'ionic-angular';
+import { Nav, Platform, ModalController, LoadingController, Loading } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Network } from '@ionic-native/network';
 
 import { HomePage } from '../pages/home/home';
 import { AboutPage } from '../pages/about/about';
@@ -16,16 +17,17 @@ import { LoginPage } from '../pages/login/login';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-
   rootPage: any = HomePage;
-
   pages: Array<{title: string, icon: string, component: any}>;
+  loading: Loading = null;
 
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public modalController: ModalController) {
+    public modalController: ModalController,
+    private loadingController: LoadingController,
+    private network: Network) {
 
     this.initializeApp();
 
@@ -42,10 +44,40 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      console.log('Device ready');
+      this.loading = null;
+
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      this.network.onDisconnect().subscribe(() => {
+        console.log('Network disconnected');
+
+        if (this.loading === null) {
+          this.loading = this.loadingController.create({
+            content: 'Network disconnected'
+          });
+          this.loading.present();
+        }
+      });
+
+      this.network.onConnect().subscribe(() => {
+        console.log('Network connected');
+
+        // we just got a connection but we need to wait briefly
+        // before we determine the connection type.
+        // Might need to wait prior to doing any api requests as well.
+        setTimeout(() => {
+          console.log('We got a ' + this.network.type + ' connection');
+        }, 3000);
+
+        if (this.loading) {
+          this.loading.dismiss();
+          this.loading = null;
+        }
+      });
     });
   }
 
