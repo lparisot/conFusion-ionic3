@@ -13,11 +13,14 @@
 <ion-content padding>
   <ion-card>
     <ion-card-header color="primary">Your Picture</ion-card-header>
-    <img src="{{base64Img}}" />
+    <img src="{{imageSrc}}" />
     <ion-grid>
       <ion-row>
         <ion-col>
-          <button ion-button small (click)="getPicture()">Take Picture</button>
+          <button ion-button small (click)="getFromCamera()">Take Picture</button>
+        </ion-col>
+        <ion-col>
+          <button ion-button small (click)="getFromLibrary()">Get From Library</button>
         </ion-col>
       </ion-row>
     </ion-grid>

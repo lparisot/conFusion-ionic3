@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { File, DirectoryEntry } from '@ionic-native/file';
 
 /**
  * Generated class for the RegisterPage page.
@@ -17,7 +18,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 })
 export class RegisterPage {
   registerForm: FormGroup;
-  //imageSrc: string = 'assets/images/logo.png';
+  imageSrc: string = 'assets/images/logo.png';
   base64Img: string;
 
   constructor(
@@ -25,6 +26,7 @@ export class RegisterPage {
     public navParams: NavParams,
     private viewCtrl: ViewController,
     private camera: Camera,
+    private file: File,
     private formBuilder: FormBuilder) {
 
     this.registerForm = this.formBuilder.group({
@@ -35,6 +37,8 @@ export class RegisterPage {
        telnum: [ '', [Validators.required, Validators.pattern] ],
        email: [ '', [Validators.required, Validators.email] ]
      });
+
+     this.camera.cleanup();
   }
 
   ionViewDidLoad() {
@@ -45,31 +49,52 @@ export class RegisterPage {
     this.viewCtrl.dismiss(true);
   }
 
-  getPicture() {
+  getFromCamera() {
+    console.log('Get from Camera');
+
+    this.getPicture(this.setOptions(this.camera.PictureSourceType.CAMERA));
+  }
+
+  getFromLibrary() {
+    console.log('Get from Photo Library');
+
+    this.getPicture(this.setOptions(this.camera.PictureSourceType.PHOTOLIBRARY));
+  }
+
+  getPicture(srcType) {
+    // bug with the DestinationType.FILE_URI
+    // retrieve something like file:///var/mobile/Containers/Data/Application/8480470B-22B2-48BE-B561-66B545BBD8B9/tmp/cdv_photo_001.jpg
+    // see https://github.com/Telerik-Verified-Plugins/WKWebView/issues/215
+    // need to use cordova-plugin-file to modify the URI
+    this.camera
+      .getPicture(srcType)
+      .then(
+        fileUri => {
+          console.log(fileUri);
+          //var relativeUri = '/' + fileUri.replace(this.file.applicationStorageDirectory, '');
+          //var relativeUri = fileUri.split("file:///")[1];
+          //console.log(relativeUri);
+          this.imageSrc = fileUri;
+        },
+        err => {
+          console.log('Error obtaining picture ' + err);
+        }
+      );
+  }
+
+  setOptions(srcType) {
     const options: CameraOptions = {
       quality: 100,
       targetHeight: 100,
       targetWidth: 100,
       correctOrientation: true,
       allowEdit: true,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.PNG,
+      sourceType: srcType,
+      destinationType: this.camera.DestinationType.FILE_URI,
       mediaType: this.camera.MediaType.PICTURE,
       cameraDirection: this.camera.Direction.FRONT
     }
-
-    this.camera
-      .getPicture(options)
-      .then(
-        imageData => {
-          this.base64Img = "data:image/png;base64," + imageData;
-          //this.imageSrc = imageData;
-          //console.log(imageData);
-        },
-        err => {
-          console.log('Error obtaining picture ' + err);
-        }
-      );
+    return options;
   }
 
   onSubmit() {
