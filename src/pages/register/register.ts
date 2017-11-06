@@ -61,13 +61,13 @@ export class RegisterPage {
     this.getPicture(this.setOptions(this.camera.PictureSourceType.PHOTOLIBRARY));
   }
 
-  getPicture(srcType) {
+  getPicture(options) {
     // bug with the DestinationType.FILE_URI
     // retrieve something like file:///var/mobile/Containers/Data/Application/8480470B-22B2-48BE-B561-66B545BBD8B9/tmp/cdv_photo_001.jpg
     // see https://github.com/Telerik-Verified-Plugins/WKWebView/issues/215
     // need to use cordova-plugin-file to modify the URI
     this.camera
-      .getPicture(srcType)
+      .getPicture(options)
       .then(
         fileUri => {
           console.log(fileUri);
