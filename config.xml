@@ -76,22 +76,22 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
     </platform>
-    <engine name="ios" spec="^4.5.2" />
-    <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
-    <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />
-    <plugin name="cordova-plugin-statusbar" spec="git+https://github.com/apache/cordova-plugin-statusbar.git" />
-    <plugin name="cordova-plugin-device" spec="^1.1.4" />
-    <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
-    <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
-    <plugin name="de.appplant.cordova.plugin.local-notification" spec="^0.8.5" />
-    <plugin name="cordova-plugin-email" spec="^1.2.6" />
-    <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.1" />
     <allow-navigation href="http://192.168.1.84:8100" />
-    <plugin name="cordova-plugin-camera" spec="^2.4.1">
+    <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
+    <plugin name="cordova-plugin-whitelist" spec="~1.3.1" />
+    <plugin name="cordova-plugin-statusbar" spec="~2.2.4-dev" />
+    <plugin name="cordova-plugin-device" spec="~1.1.4" />
+    <plugin name="cordova-plugin-splashscreen" spec="~4.0.1" />
+    <plugin name="cordova-plugin-ionic-webview" spec="^1.1.11" />
+    <plugin name="de.appplant.cordova.plugin.local-notification" spec="~0.8.5" />
+    <plugin name="cordova-plugin-email" spec="~1.2.6" />
+    <plugin name="cordova-plugin-x-socialsharing" spec="~5.2.1" />
+    <plugin name="cordova-plugin-camera" spec="~2.4.1">
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
-    <plugin name="cordova-plugin-network-information" spec="^1.3.3" />
+    <plugin name="cordova-plugin-network-information" spec="~1.3.3" />
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
-    <plugin name="cordova-plugin-file" spec="^4.3.3" />
+    <plugin name="cordova-plugin-file" spec="~4.3.3" />
+    <engine name="ios" spec="~4.5.3" />
 </widget>

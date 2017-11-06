@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { File, DirectoryEntry } from '@ionic-native/file';
+import { File } from '@ionic-native/file';
 
 /**
  * Generated class for the RegisterPage page.
@@ -74,6 +74,7 @@ export class RegisterPage {
           //var relativeUri = '/' + fileUri.replace(this.file.applicationStorageDirectory, '');
           //var relativeUri = fileUri.split("file:///")[1];
           //console.log(relativeUri);
+          //this.moveFileToExternaleStorage(fileUri);
           this.imageSrc = fileUri;
         },
         err => {
@@ -101,4 +102,21 @@ export class RegisterPage {
     console.log(this.registerForm.value);
     this.dismiss();
   }
-}
+
+  moveFileToExternaleStorage(fileName: string) {
+    let dataDirectory: string = this.file.dataDirectory;
+    console.log('dataDirectory: ' + dataDirectory);
+    let currentPath: string = this.file.applicationStorageDirectory + 'tmp/';
+    console.log('currentPath: ' + currentPath);
+
+    fileName = fileName.split("/").pop();
+    console.log('fileName: ' + fileName);
+
+    this.file.moveFile(currentPath, fileName, dataDirectory, fileName)
+      .then(entry => {
+        console.log('Move file: ' + entry.nativeURL);
+        this.imageSrc = entry.nativeURL;
+      });
+  }
+
+ }
