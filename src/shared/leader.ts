@@ -1,5 +1,5 @@
 export interface Leader {
-  id: number;
+  id: string;
   name: string;
   image: string;
   designation: string;

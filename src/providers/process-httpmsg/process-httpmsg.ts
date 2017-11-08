@@ -31,7 +31,7 @@ export class ProcessHttpmsgProvider {
     } else {
       errMsg = error.message ? error.message : error.toString();
     }
-    console.error(errMsg);
+    console.error('ProcessHttpmsgProvider: ' + errMsg);
     return Observable.throw(errMsg);
   }
 }

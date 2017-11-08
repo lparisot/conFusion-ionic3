@@ -1,5 +1,5 @@
 export interface Promotion {
-  id: number;
+  id: string;
   name: string;
   image: string;
   label: string;

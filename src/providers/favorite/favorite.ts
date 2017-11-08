@@ -42,7 +42,6 @@ export class FavoriteProvider {
       this.favorites.push(dish.id);
       this.storage.set('favorites', this.favorites);
       this.localNotifications.schedule({
-        id: dish.id,
         text: 'Dish ' + dish.name + ' added as favorite successfully'
       });
     }
@@ -68,7 +67,7 @@ export class FavoriteProvider {
       .map(dishes => dishes.filter(dish => this.isFavorite(dish.id)));
   }
 
-  isFavorite(id: number): boolean {
+  isFavorite(id: string): boolean {
     return this.favorites.some(el => el === id);
   }
 }
